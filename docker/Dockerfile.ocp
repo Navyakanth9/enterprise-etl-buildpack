@@ -1,0 +1,9 @@
+FROM registry.access.redhat.com/ubi9/ubi-minimal
+
+WORKDIR /opt/etl
+
+COPY etl-build/ .
+
+USER 1001
+
+ENTRYPOINT ["/bin/bash"]
