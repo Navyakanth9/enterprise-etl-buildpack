@@ -1,0 +1,30 @@
+name: Internal ETL Buildpack
+description: Enterprise internal buildpack for ETL components
+
+inputs:
+  image-name:
+    required: true
+  image-tag:
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Detect ETL
+      run: buildpack/detect.sh
+      shell: bash
+
+    - name: Build ETL
+      run: buildpack/build.sh
+      shell: bash
+
+    - name: Package ETL
+      run: buildpack/package.sh
+      shell: bash
+
+    - name: Build Image
+      run: buildpack/image.sh
+      shell: bash
+      env:
+        IMAGE_NAME: ${{ inputs.image-name }}
+        IMAGE_TAG: ${{ inputs.image-tag }}
